@@ -1,0 +1,52 @@
+﻿@using Microsoft.Azure.CognitiveServices.Vision.Face.Models;
+@model IList<DetectedFace>;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">FIAP - FERNANDO JOSÉ</h1>
+    <p>Reconhecimento Facial</p>
+
+    <div class="row">
+        @foreach (var face in Model)
+        {
+            <div class="col-md-4">
+
+                <div class="card">
+                    <img class="card-img-top" src="https://www.sbcoaching.com.br/blog/wp-content/uploads/2018/10/dinamica-o-que-e-uma-grupo.jpg" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">@face.FaceId</h5>
+                        <p class="card-text">projeto de reconhecimento facial. A seguir algumas caracteristicas da foto</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        @{
+                            var faceAttributes = face.FaceAttributes;
+                            List<Accessory> accessories = (List<Accessory>)faceAttributes.Accessories;
+                        }
+
+                        <li class="list-group-item item">Sexo: @faceAttributes.Gender</li>
+                        <li class="list-group-item item">Idade: @faceAttributes.Age</li>
+
+                        @if (faceAttributes.Smile > 0)
+                        {
+                            <li class="list-group-item item">Feliz</li>
+                        }
+
+                        @if (faceAttributes.Glasses != GlassesType.NoGlasses)
+                        {
+                            <li class="list-group-item item">Usa oculos</li>
+                        }
+
+                        @foreach (var accessorie in accessories)
+                        {
+                            <li class="list-group-item item">@accessorie.Type</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>

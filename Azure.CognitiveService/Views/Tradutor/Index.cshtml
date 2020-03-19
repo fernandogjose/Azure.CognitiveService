@@ -1,0 +1,22 @@
+﻿@model Azure.CognitiveService.Controllers.Translator;
+
+@{
+    ViewData["Title"] = "Tradutor";
+}
+
+<div class="text-center">
+    <h1 class="display-4">FIAP - FERNANDO JOSÉ</h1>
+    <p>Tradutor</p>
+
+    <ul class="list-group">
+        <li class="list-group-item active">Traduzir: @Model.From</li>
+
+        @foreach (var microsoftTranslator in Model.MicrosoftTranslators)
+        {
+            foreach (var translation in microsoftTranslator.Translations)
+            {
+                <li class="list-group-item">@translation.To: @translation.Text</li>
+            }
+        }
+    </ul>
+</div>
